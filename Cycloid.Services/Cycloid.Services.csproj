@@ -50,6 +50,11 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ChannelsWcfService.cs" />
+    <Compile Include="Connected Services\ChannelsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="ProgramsRestService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,6 +66,40 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Connected Services\ChannelsService\Cycloid.Services.ChannelsService.Channel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ChannelsService\Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ChannelsService\Service1.wsdl" />
+    <None Include="Connected Services\ChannelsService\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ChannelsService\Service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ChannelsService\Service3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\ChannelsService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ChannelsService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ChannelsService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ChannelsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

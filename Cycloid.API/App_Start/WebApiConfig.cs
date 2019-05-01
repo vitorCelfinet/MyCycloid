@@ -1,5 +1,8 @@
 ﻿using System.Net.Http.Formatting;
 using System.Web.Http;
+using Cycloid.Managers;
+using Cycloid.Repositories;
+using Cycloid.Services;
 using Unity;
 
 namespace Cycloid.API
@@ -28,6 +31,10 @@ namespace Cycloid.API
             GlobalConfiguration.Configuration.Formatters.Add(new JsonMediaTypeFormatter());
 
             var container = new UnityContainer();
+
+            container.RegisterType<IChannelsManager, ChannelsManager>(TypeLifetime.Scoped);
+            container.RegisterType<IChannelsService, ChannelsWcfService>(TypeLifetime.Singleton);
+            container.RegisterType<IDevicesRepository, DevicesRepository>(TypeLifetime.Singleton);
 
             config.DependencyResolver = new UnityResolver(container);
             

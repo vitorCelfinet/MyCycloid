@@ -3,6 +3,9 @@ using Cycloid.Managers;
 using Cycloid.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -35,7 +38,10 @@ namespace Cycloid.API.Controllers
         [Route("")]
         public HttpResponseMessage Get()
         {
-            throw new NotImplementedException();
+            var channels = _channelsManager.GetAllChannels();
+            if(!channels.Any())
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            return Request.CreateResponse(HttpStatusCode.OK, channels);
         }
 
         /// <summary>
@@ -48,7 +54,11 @@ namespace Cycloid.API.Controllers
         [Route("subscribed")]
         public HttpResponseMessage GetSubscribedChannels([FromHeader("session-id")]string sessionId)
         {
-            throw new NotImplementedException();
+            List<Channel> channels = _channelsManager.GetSubscribedChannelsBySessionId(sessionId).ToList();
+            
+            if (!channels.Any())
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            return Request.CreateResponse(HttpStatusCode.OK, channels);
         }
     }
 }
