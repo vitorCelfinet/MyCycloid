@@ -16,20 +16,11 @@ namespace Cycloid.Services
             set => _programs = value;
         }
         
-        public IList<Program> GetByChannelId(string channelId)
+        public IList<Program> GetAll()
         {
             if (!Programs.Any())
                 Programs = GetPrograms();
-
-            return Programs.Where(c => c.ChannelId.Equals(channelId)).ToList();
-        }
-
-        public Program GetById(string id)
-        {
-            if (!Programs.Any())
-                Programs = GetPrograms();
-
-            return Programs.FirstOrDefault(c => c.Id.Equals(id));
+            return Programs;
         }
 
         private IList<Program> GetPrograms()

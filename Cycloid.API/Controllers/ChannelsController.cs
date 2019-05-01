@@ -9,12 +9,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Cycloid.Handlers;
 
 namespace Cycloid.API.Controllers
 {
     /// <summary>
     /// The channels controller
     /// </summary>
+    [LogActionFilter]
     [RoutePrefix("v1/channels")]
     public class ChannelsController : ApiController 
     {
@@ -40,7 +42,7 @@ namespace Cycloid.API.Controllers
         {
             var channels = _channelsManager.GetAllChannels();
             if(!channels.Any())
-                return Request.CreateResponse(HttpStatusCode.NoContent);
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             return Request.CreateResponse(HttpStatusCode.OK, channels);
         }
 
@@ -54,10 +56,13 @@ namespace Cycloid.API.Controllers
         [Route("subscribed")]
         public HttpResponseMessage GetSubscribedChannels([FromHeader("session-id")]string sessionId)
         {
+            if (string.IsNullOrEmpty(sessionId))
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Input");
+
             List<Channel> channels = _channelsManager.GetSubscribedChannelsBySessionId(sessionId).ToList();
             
             if (!channels.Any())
-                return Request.CreateResponse(HttpStatusCode.NoContent);
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             return Request.CreateResponse(HttpStatusCode.OK, channels);
         }
     }

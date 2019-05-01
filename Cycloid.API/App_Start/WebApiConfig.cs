@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Formatting;
 using System.Web.Http;
+using Cycloid.Handlers;
 using Cycloid.Managers;
 using Cycloid.Repositories;
 using Cycloid.Services;
@@ -43,6 +44,8 @@ namespace Cycloid.API
             config.DependencyResolver = new UnityResolver(container);
 
             config.MessageHandlers.Add(new AuthenticationHandler());
+
+            config.Filters.Add(new LogExceptionFilter());
         }
     }
 }

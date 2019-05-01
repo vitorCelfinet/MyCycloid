@@ -8534,7 +8534,7 @@ var
 
 	// #7653, #8125, #8152: local protocol detection
 	rlocalProtocol = /^(?:about|app|app-storage|.+-extension|file|res|widget):$/,
-	rnoContent = /^(?:GET|HEAD)$/,
+	rNoContent = /^(?:GET|HEAD)$/,
 	rprotocol = /^\/\//,
 
 	/* Prefilters
@@ -9094,7 +9094,7 @@ jQuery.extend( {
 		s.type = s.type.toUpperCase();
 
 		// Determine if request has content
-		s.hasContent = !rnoContent.test( s.type );
+		s.hasContent = !rNoContent.test( s.type );
 
 		// Save the URL in case we're toying with the If-Modified-Since
 		// and/or If-None-Match header later on
@@ -9271,7 +9271,7 @@ jQuery.extend( {
 
 				// if no content
 				if ( status === 204 || s.type === "HEAD" ) {
-					statusText = "nocontent";
+					statusText = "NoContent";
 
 				// if not modified
 				} else if ( status === 304 ) {

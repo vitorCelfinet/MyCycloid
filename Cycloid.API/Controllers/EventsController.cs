@@ -3,16 +3,19 @@ using Cycloid.Managers;
 using Cycloid.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Cycloid.Handlers;
 
 namespace Cycloid.API.Controllers
 {
     /// <summary>
     /// The events controller
     /// </summary>
+    [LogActionFilter]
     [RoutePrefix("v1/events")]
     public class EventsController : ApiController
     {
@@ -39,7 +42,13 @@ namespace Cycloid.API.Controllers
         [Route("{channelId}")]
         public HttpResponseMessage GetByChannel([FromHeader("session-id")]string sessionId, [FromUri]string channelId)
         {
+            if (string.IsNullOrEmpty(sessionId) || string.IsNullOrEmpty(channelId))
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,"Invalid Input");
+
             var events = _eventsManager.GetEventsAsync(sessionId, channelId);
+            
+            if (!events.Result.Any())
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             return Request.CreateResponse(HttpStatusCode.OK, events.Result);
         }
 
@@ -53,7 +62,13 @@ namespace Cycloid.API.Controllers
         [Route("now")]
         public HttpResponseMessage GetPlaying([FromHeader("session-id")]string sessionId)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(sessionId))
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Input");
+
+            var events = _eventsManager.GetPlayingEventsAsync(sessionId);
+            if (!events.Result.Any())
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            return Request.CreateResponse(HttpStatusCode.OK, events.Result);
         }
     }
 }

@@ -2,16 +2,19 @@
 using Cycloid.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Cycloid.Handlers;
 
 namespace Cycloid.API.Controllers
 {
     /// <summary>
     /// The program controller
     /// </summary>
+    [LogActionFilter]
     [RoutePrefix("v1/programs")]
     public class ProgramsController : ApiController
     {
@@ -36,7 +39,12 @@ namespace Cycloid.API.Controllers
         [Route("{id}")]
         public HttpResponseMessage Get([FromUri]string id)
         {
+            if (string.IsNullOrEmpty(id))
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Input");
+
             Program program = _programsManager.GetById(id);
+            if (program == null)
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             return Request.CreateResponse(HttpStatusCode.OK, program);
 
         }
@@ -53,7 +61,13 @@ namespace Cycloid.API.Controllers
         [Route("")]
         public HttpResponseMessage GetByChannel([FromUri]string channelId, [FromUri]int skip = 0, [FromUri]int take = 10)
         {
+            if (string.IsNullOrEmpty(channelId) || string.IsNullOrEmpty(channelId))
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Input");
+
             IList<Program> programs = _programsManager.GetByChannelId(channelId, skip, take);
+
+            if (!programs.Any())
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             return Request.CreateResponse(HttpStatusCode.OK, programs);
         }
     }

@@ -19,9 +19,9 @@ namespace Cycloid.Managers
         /// <summary>
         /// Gets all events playing at the moment
         /// </summary>
-        /// <param name="deviceId">The device id</param>
+        /// <param name="sessionId">The session Id</param>
         /// <param name="ct">(optional) The cancellation token</param>
         /// <returns></returns>
-        Task<List<Event>> GetPlayingEventsAsync(string deviceId, CancellationToken ct = default(CancellationToken));
+        Task<List<Event>> GetPlayingEventsAsync(string sessionId, CancellationToken ct = default(CancellationToken));
     }
 }

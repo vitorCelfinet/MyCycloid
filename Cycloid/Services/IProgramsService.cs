@@ -5,7 +5,6 @@ namespace Cycloid.Services
 {
     public interface IProgramsService
     {
-        IList<Program> GetByChannelId(string channelId);
-        Program GetById(string id);
+        IList<Program> GetAll();
     }
 }

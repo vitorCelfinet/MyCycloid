@@ -16,18 +16,23 @@ namespace Cycloid.Managers
 
         public IList<Program> GetByChannelId(string channelId)
         {
-            return _programsService.GetByChannelId(channelId);
+            return _programsService.GetAll().Where(c=> c.ChannelId == channelId).ToList();
         }
 
         public IList<Program> GetByChannelId(string channelId, int skip, int take)
         {
-            IList<Program> programs = _programsService.GetByChannelId(channelId);
+            IList<Program> programs = _programsService.GetAll().Where(c => c.ChannelId == channelId).ToList();
             return programs.Skip(skip).Take(take).ToList();
         }
 
         public Program GetById(string id)
         {
-            return _programsService.GetById(id);
+            return _programsService.GetAll().FirstOrDefault(c=> c.Id.Equals(id));
+        }
+
+        public IEnumerable<IGrouping<string, Program>> GetAllGroupByChannel()
+        {
+            return _programsService.GetAll().GroupBy(c=> c.ChannelId);
         }
     }
 }

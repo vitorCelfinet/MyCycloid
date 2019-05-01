@@ -17,15 +17,15 @@ namespace Cycloid.Logger
 
     public static class LogHelper
     {
-        public static void WriteToLog(this NLog.Logger logger, LogLevels level, string sessionId, string deviceId, string message)
+        public static void WriteToLog(this NLog.Logger logger, LogLevels level, string message, string loggerName)
         {
             switch (level)
             {
-                case LogLevels.Debug: logger.Debug($"{sessionId}|{deviceId}|{message}"); break;
-                case LogLevels.Info: logger.Info($"{sessionId}|{deviceId}|{message}"); break;
-                case LogLevels.Warning: logger.Warn($"{sessionId}|{deviceId}|{message}"); break;
-                case LogLevels.Error: logger.Error($"{sessionId}|{deviceId}|{message}"); break;
-                default: logger.Debug($"{sessionId}|{deviceId}|{message}"); break;
+                case LogLevels.Debug: logger.Debug($"{loggerName}||{message}"); break;
+                case LogLevels.Info: logger.Info($"{loggerName}|{message}"); break;
+                case LogLevels.Warning: logger.Warn($"{loggerName}|{message}"); break;
+                case LogLevels.Error: logger.Error($"{loggerName}|{message}"); break;
+                default: logger.Debug($"{loggerName}|{message}"); break;
             }
         }
 
