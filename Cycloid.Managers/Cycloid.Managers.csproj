@@ -50,6 +50,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ChannelsManager.cs" />
+    <Compile Include="DeviceManager.cs" />
     <Compile Include="EventsManager.cs" />
     <Compile Include="ProgramsManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

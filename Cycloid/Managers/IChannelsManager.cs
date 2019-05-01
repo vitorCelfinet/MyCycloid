@@ -7,5 +7,6 @@ namespace Cycloid.Managers
     {
         IEnumerable<Channel> GetAllChannels();
         IEnumerable<Channel> GetSubscribedChannelsBySessionId(string sessionId);
+        Channel GetById(string channelId);
     }
 }

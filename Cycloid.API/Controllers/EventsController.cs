@@ -3,6 +3,7 @@ using Cycloid.Managers;
 using Cycloid.Models;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -21,6 +22,7 @@ namespace Cycloid.API.Controllers
         /// The events controller constructor
         /// </summary>
         /// <param name="eventsManager">The events manager</param>
+        /// <param name="deviceManager"></param>
         public EventsController(IEventsManager eventsManager)
         {
             _eventsManager = eventsManager;
@@ -37,7 +39,8 @@ namespace Cycloid.API.Controllers
         [Route("{channelId}")]
         public HttpResponseMessage GetByChannel([FromHeader("session-id")]string sessionId, [FromUri]string channelId)
         {
-            throw new NotImplementedException();
+            var events = _eventsManager.GetEventsAsync(sessionId, channelId);
+            return Request.CreateResponse(HttpStatusCode.OK, events.Result);
         }
 
         /// <summary>

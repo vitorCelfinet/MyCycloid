@@ -34,12 +34,14 @@ namespace Cycloid.API
 
             container.RegisterType<IChannelsManager, ChannelsManager>(TypeLifetime.Scoped);
             container.RegisterType<IProgramsManager, ProgramsManager>(TypeLifetime.Scoped);
+            container.RegisterType<IEventsManager, EventsManager>(TypeLifetime.Scoped);
+
             container.RegisterType<IChannelsService, ChannelsWcfService>(TypeLifetime.Singleton);
             container.RegisterType<IDevicesRepository, DevicesRepository>(TypeLifetime.Singleton);
             container.RegisterType<IProgramsService, ProgramsRestService>(TypeLifetime.Singleton);
 
             config.DependencyResolver = new UnityResolver(container);
-            
+
             config.MessageHandlers.Add(new AuthenticationHandler());
         }
     }

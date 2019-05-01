@@ -13,6 +13,12 @@ namespace Cycloid.Managers
         {
             _programsService = programsService;
         }
+
+        public IList<Program> GetByChannelId(string channelId)
+        {
+            return _programsService.GetByChannelId(channelId);
+        }
+
         public IList<Program> GetByChannelId(string channelId, int skip, int take)
         {
             IList<Program> programs = _programsService.GetByChannelId(channelId);

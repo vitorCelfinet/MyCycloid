@@ -543,6 +543,7 @@
             The events controller constructor
             </summary>
             <param name="eventsManager">The events manager</param>
+            <param name="deviceManager"></param>
         </member>
         <member name="M:Cycloid.API.Controllers.EventsController.GetByChannel(System.String,System.String)">
             <summary>

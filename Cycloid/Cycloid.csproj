@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ClassExtensions.cs" />
     <Compile Include="Extensions\EpochExtensions.cs" />
     <Compile Include="Managers\IDeviceManager.cs" />
     <Compile Include="Managers\IEventsManager.cs" />

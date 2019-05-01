@@ -27,10 +27,15 @@ namespace Cycloid.Managers
             
             var channelsIds = _channelsService.GetSubscribedChannelsByDeviceId(device.Id);
 
-            return GetChannelsByIds(channelsIds);
+            return GetByIds(channelsIds);
         }
 
-        private IEnumerable<Channel> GetChannelsByIds(IEnumerable<string> channelsIds)
+        public Channel GetById(string channelId)
+        {
+            return GetAllChannels().FirstOrDefault(c => c.Id.Equals(channelId));
+        }
+
+        private IEnumerable<Channel> GetByIds(IEnumerable<string> channelsIds)
         {
             return GetAllChannels().Where(c => channelsIds.Contains(c.Id));
         }
