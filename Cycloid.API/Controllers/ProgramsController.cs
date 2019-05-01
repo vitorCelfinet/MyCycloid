@@ -2,6 +2,7 @@
 using Cycloid.Models;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -35,7 +36,9 @@ namespace Cycloid.API.Controllers
         [Route("{id}")]
         public HttpResponseMessage Get([FromUri]string id)
         {
-            throw new NotImplementedException();
+            Program program = _programsManager.GetById(id);
+            return Request.CreateResponse(HttpStatusCode.OK, program);
+
         }
 
         /// <summary>
@@ -47,10 +50,11 @@ namespace Cycloid.API.Controllers
         /// <returns>The programs list</returns>
         [HttpGet]
         [ResponseType(typeof(List<Program>))]
-        [Route("{channelId}")]
+        [Route("")]
         public HttpResponseMessage GetByChannel([FromUri]string channelId, [FromUri]int skip = 0, [FromUri]int take = 10)
         {
-            throw new NotImplementedException();
+            IList<Program> programs = _programsManager.GetByChannelId(channelId, skip, take);
+            return Request.CreateResponse(HttpStatusCode.OK, programs);
         }
     }
 }
